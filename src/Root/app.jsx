@@ -1,10 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense, lazy } from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom'
+
+// Pages
+const Home = lazy(() => import('../pages/Products/products'))
 
 class App extends Component {
   render() {
     return (
       <>
-        <p>Hello</p>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route path="/" exact render={() => <Home />} />
+            <Route path="*" render={() => <Redirect to="/" />} />
+          </Switch>
+        </Suspense>
       </>
     )
   }
