@@ -4,7 +4,11 @@ import { Container, Grid, Card, Image, Button } from 'semantic-ui-react'
 
 import classes from './products.module.scss'
 import productsJSON from '../../products.json'
-import { addProduct } from '../../store/actions/actions'
+import {
+  addProduct,
+  resetProduct,
+  addToCart
+} from '../../store/actions/actions'
 
 class Products extends Component {
   state = {
@@ -16,9 +20,14 @@ class Products extends Component {
   }
 
   fetchProducts = async () => {
+    this.props.resetProduct()
     for (const product of productsJSON) {
       this.props.addProduct(product)
     }
+  }
+
+  onAddToCart = product => {
+    this.props.addToCart(product)
   }
 
   render() {
@@ -51,7 +60,12 @@ class Products extends Component {
                       </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                      <Button inverted fluid color="red">
+                      <Button
+                        inverted
+                        fluid
+                        color="red"
+                        onClick={() => this.onAddToCart(product)}
+                      >
                         Add To Cart
                       </Button>
                     </Card.Content>
@@ -73,7 +87,9 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    addProduct: payload => dispatch(addProduct(payload))
+    addProduct: payload => dispatch(addProduct(payload)),
+    resetProduct: () => dispatch(resetProduct()),
+    addToCart: payload => dispatch(addToCart(payload))
   }
 }
 
