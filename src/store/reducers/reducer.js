@@ -1,7 +1,13 @@
-import { ADD_PRODUCT } from '../actions/actionTypes'
+import {
+  ADD_PRODUCT,
+  RESET_PRODUCT,
+  ADD_TO_CART,
+  RESET_CART
+} from '../actions/actionTypes'
 
 const initialState = {
-  products: []
+  products: [],
+  carts: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +16,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         products: state.products.concat(action.payload)
+      }
+    case RESET_PRODUCT:
+      return {
+        ...state,
+        products: []
+      }
+    case ADD_TO_CART:
+      return {
+        ...state,
+        carts: state.carts.concat(action.payload)
+      }
+    case RESET_CART:
+      return {
+        ...state,
+        carts: []
       }
     default:
       return state
