@@ -11,6 +11,12 @@
 
     .cardTitle {
       font-size: 14px !important;
+      max-height: 36px;
+      overflow: hidden;
+
+      &:hover {
+        overflow: auto;
+      }
     }
 
     .price {
@@ -23,7 +29,6 @@
     .description {
       max-height: 130px;
       overflow: hidden;
-      padding-right: 30px;
 
       &:hover {
         overflow: auto;
