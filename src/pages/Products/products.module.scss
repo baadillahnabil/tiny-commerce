@@ -3,5 +3,31 @@
 
   .card {
     padding: 20px;
+
+    .cardImage {
+      height: 300px;
+      width: auto;
+    }
+
+    .cardTitle {
+      font-size: 14px !important;
+    }
+
+    .price {
+      margin: 15px 0 !important;
+      font-size: 14px;
+      font-weight: bold;
+      color: deeppink;
+    }
+
+    .description {
+      max-height: 130px;
+      overflow: hidden;
+      padding-right: 30px;
+
+      &:hover {
+        overflow: auto;
+      }
+    }
   }
 }

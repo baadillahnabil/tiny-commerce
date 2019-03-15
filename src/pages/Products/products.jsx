@@ -35,19 +35,25 @@ class Products extends Component {
                   key={product.id}
                   className={classes.card}
                 >
-                  <Card centered>
-                    <Image src={product.image} />
+                  <Card centered color="red">
+                    <Image src={product.image} className={classes.cardImage} />
                     <Card.Content>
-                      <Card.Header>{product.name}</Card.Header>
+                      <Card.Header className={classes.cardTitle}>
+                        {product.name}
+                      </Card.Header>
                       <Card.Meta>
-                        <span className="date">Joined in 2015</span>
+                        <p className={classes.price}>
+                          {product.currency} {product.price}
+                        </p>
                       </Card.Meta>
-                      <Card.Description>{product.description}</Card.Description>
+                      <Card.Description className={classes.description}>
+                        {product.description}
+                      </Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                      <p>
-                        <Icon name="user" />
-                      </p>
+                      <Button inverted fluid color="red">
+                        Add To Cart
+                      </Button>
                     </Card.Content>
                   </Card>
                 </Grid.Column>
