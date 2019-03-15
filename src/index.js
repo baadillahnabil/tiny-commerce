@@ -1,14 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
 import './index.scss'
 import App from './root/app'
 import * as serviceWorker from './serviceWorker'
+import reducer from './store/reducers/reducer'
+
+// Setup redux and redux saga
+
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 // Wrap root component so that we can use router inside it
 const app = (
   <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </BrowserRouter>
 )
 
