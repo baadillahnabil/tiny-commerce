@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid, Card, Image, Icon, Button } from 'semantic-ui-react'
+import { Container, Grid, Card, Image, Button } from 'semantic-ui-react'
 
 import classes from './products.module.scss'
 import productsJSON from '../../products.json'
