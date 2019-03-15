@@ -1,31 +1,52 @@
 import React, { Component } from 'react'
-import { Container, Grid, Card, Image, Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Container, Grid, Card, Image, Icon, Button } from 'semantic-ui-react'
+
 import classes from './products.module.scss'
+import productsJSON from '../../products.json'
+import { addProduct } from '../../store/actions/actions'
 
 class Products extends Component {
+  state = {
+    isFetching: false
+  }
+
+  componentDidMount() {
+    this.fetchProducts()
+  }
+
+  fetchProducts = async () => {
+    for (const product of productsJSON) {
+      this.props.addProduct(product)
+    }
+  }
+
   render() {
+    const { products } = this.props
+
     return (
       <div className={classes.productsPage}>
         <Container fluid>
           <Grid>
             <Grid.Row>
-              {Array.from(Array(10), (el, index) => (
-                <Grid.Column width={4} key={index} className={classes.card}>
+              {products.map(product => (
+                <Grid.Column
+                  width={4}
+                  key={product.id}
+                  className={classes.card}
+                >
                   <Card centered>
-                    <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png" />
+                    <Image src={product.image} />
                     <Card.Content>
-                      <Card.Header>Matthew</Card.Header>
+                      <Card.Header>{product.name}</Card.Header>
                       <Card.Meta>
                         <span className="date">Joined in 2015</span>
                       </Card.Meta>
-                      <Card.Description>
-                        Matthew is a musician living in Nashville.
-                      </Card.Description>
+                      <Card.Description>{product.description}</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                       <p>
                         <Icon name="user" />
-                        22 Friends
                       </p>
                     </Card.Content>
                   </Card>
@@ -39,4 +60,18 @@ class Products extends Component {
   }
 }
 
-export default Products
+const mapStateToProps = state => {
+  return {
+    ...state
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: payload => dispatch(addProduct(payload))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Products)
