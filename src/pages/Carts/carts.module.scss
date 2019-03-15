@@ -1,0 +1,23 @@
+.cartsPage {
+  margin-top: 5%;
+
+  .emptyMessage {
+    text-align: center;
+  }
+
+  .columnIndex {
+    width: 10px;
+    text-align: center;
+  }
+
+  .columnPriceHeader {
+    text-align: right !important;
+    width: 80px;
+  }
+
+  .columnPrice {
+    min-width: 150px;
+    white-space: nowrap;
+    text-align: right !important;
+  }
+}

@@ -1,12 +1,31 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Message, Table, Header, Button } from 'semantic-ui-react'
+import GoogleLogin from 'react-google-login'
 
 import classes from './carts.module.scss'
 import { addToCart, resetCart } from '../../store/actions/actions'
 
 class Carts extends Component {
+  state = {
+    isLoggedOn: false
+  }
+
+  onLoginGoogleSuccess = () => {
+    console.log('succeed')
+    this.setState({ isLoggedOn: true })
+  }
+  onLoginGoogleFailed = () => {
+    console.log('failed')
+    this.setState({ isLoggedOn: false })
+  }
+
+  onPlaceOrder = () => {
+    alert('yeay')
+  }
+
   render() {
+    const { isLoggedOn } = this.state
     const { carts, resetCart } = this.props
 
     let totalPrice = 0
@@ -65,12 +84,28 @@ class Carts extends Component {
                 </Table.Footer>
               </Table>
               <br />
-              <Button floated="right" color="red" inverted>
+              <Button
+                floated="right"
+                color="red"
+                inverted
+                disabled={!isLoggedOn}
+                onClick={this.onPlaceOrder}
+              >
                 Place Order
               </Button>
               <Button floated="right" color="blue" inverted onClick={resetCart}>
                 Clear Cart
               </Button>
+              {!isLoggedOn && (
+                <GoogleLogin
+                  buttonText="Log-In With Google"
+                  clientId="569427941113-97186ocu7sj0f3k6vk8oal4qc1133fs7.apps.googleusercontent.com"
+                  onSuccess={this.onLoginGoogleSuccess}
+                  onFailure={this.onLoginGoogleFailed}
+                  cookiePolicy={'single_host_origin'}
+                  redirectUri="http://localhost:3000"
+                />
+              )}
             </>
           )}
         </Container>
